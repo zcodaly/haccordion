@@ -9,10 +9,12 @@
 		var options = $.extend( {
 			section: 'section',
 			label: 'label',
-			container: 'sections'
+			duration: 750,
+			easing: 'swing',
+			callback: null,
 		}, settings );
 		
-		var height = $(this).height( );
+		var height = 0;
 		var width = $(this).width( );
 		var labelWidth = $('.' + options.label).width( );
 		var children = $(this).children( '.' + options.section );
@@ -44,10 +46,11 @@
 				
 				var hit = false;
 				$(children).each( function ( i ) {
+					var tmp = this;
 					if ( !hit ) {
-						$(this).animate( { left: ( i * labelWidth ) }, function ( ) { window.sectionsFinished ++; if ( window.sectionsFinished == window.accordionSections ) { window.accordionExpanding = false; } } );
+						$(this).animate( { left: ( i * labelWidth ) }, options.duration, options.easing, function ( ) { window.sectionsFinished ++; if ( window.sectionsFinished == window.accordionSections ) { window.accordionExpanding = false; } if ( typeof options.callback == 'function' ) { options.callback.call( tmp ); } } );
 					} else {
-						$(this).animate( { left: ( i * labelWidth ) + $(this).width( ) - labelWidth }, function ( ) { window.sectionsFinished ++; if ( window.sectionsFinished == window.accordionSections ) { window.accordionExpanding = false; } } );
+						$(this).animate( { left: ( i * labelWidth ) + $(this).width( ) - labelWidth }, options.duration, options.easing, function ( ) { window.sectionsFinished ++; if ( window.sectionsFinished == window.accordionSections ) { window.accordionExpanding = false; } if ( typeof options.callback == 'function' ) { options.callback.call( tmp ); } } );
 					}
 					
 					if ( this == section[0] ) {
@@ -66,7 +69,7 @@
 			$(this).children( '.label' ).css( 'float', 'left' ).css( 'cursor', 'pointer' );
 			$(this).children( '.content' ).css( {
 				'float': 'left',
-				width: free - labelWidth - ( $('.section .content').css( 'padding-left' ).replace( /px/, '' ) * 2 ),
+				width: free - labelWidth - ( $('.section .content').css( 'padding-left' ).replace( /px/, '' ) * 2 )
 			} );
 			
 			$(this).children( ).each( function ( ) {
@@ -77,7 +80,7 @@
 				activate( $(this).parent( ) );
 			} );
 		} );
-		
+
 		if ( height > $(this).height( ) ) {
 			$(this).css( 'height', height );
 		}

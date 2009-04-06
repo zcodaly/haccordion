@@ -46,12 +46,20 @@ CSS:
 JS:
 	$('.sections').hAccordion( );
 
-	Alternatively, you can give pass different classes for the different parts of the accordion:
 
-	$('.accordion').hAccordion( {
-		sectionContainer: 'accordion',
-		section: 'bellow',
-		label: 'tab'
-	} );
+OPTIONS
+============================
+Options are passed as a JavaScript object.  Possible options are as follows:
 
-	In the above example, 'accordion' refers to the 'section' class in the HTML above, 'bellow' to 'section', and 'tab' to 'label'.
+- section:		The container for each section of the accordion. In the above example,
+				these were the divs classed as 'section'.  Default is 'section'.
+
+- label:		The clickable part of the section.  It's recommended that you use divs
+				for the labels.  In the above example, these were the divs classed as
+				'label'.  Default is 'label'.
+
+- duration:		This is passed straight through to the jquery-ui calls.  Default is
+				750ms.
+
+- easing:		This is passed straight through to the jquery-ui calls.  Default is
+				'swing'.  The only other built in value is 'linear'.
