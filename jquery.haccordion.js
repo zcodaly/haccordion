@@ -11,7 +11,7 @@
 			label: 'label',
 			duration: 750,
 			easing: 'swing',
-			callback: null,
+			callback: null
 		}, settings );
 		
 		var height = 0;
