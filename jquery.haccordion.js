@@ -6,28 +6,29 @@
 */
 ( function ( ) {
 	$.fn.hAccordion = function ( settings ) {
-		settings = $.extend( {
+		var options = $.extend( {
 			section: 'section',
 			label: 'label',
-			container: 'sections',
+			container: 'sections'
 		}, settings );
 		
 		var height = $(this).height( );
 		var width = $(this).width( );
-		var labelWidth = $('.' + settings.label).width( );
-		var children = $(this).children( '.' + settings.section );
+		var labelWidth = $('.' + options.label).width( );
+		var children = $(this).children( '.' + options.section );
 		var free = width - ( labelWidth * children.length );
 		
 		$(this).css( {
 			position: 'relative',
 			overflow: 'hidden'
-		} )
+		} );
 		
 		var getPosition = function ( section ) {
 			var i = 0, pos = 0;
 			$(children).each( function ( ) {
-				if ( this == section[0] )
+				if ( this == section[0] ) {
 					pos = i;
+				}
 					
 				i ++;
 			} );
@@ -49,8 +50,9 @@
 						$(this).animate( { left: ( i * labelWidth ) + $(this).width( ) - labelWidth }, function ( ) { window.sectionsFinished ++; if ( window.sectionsFinished == window.accordionSections ) { window.accordionExpanding = false; } } );
 					}
 					
-					if ( this == section[0] )
+					if ( this == section[0] ) {
 						hit = true;
+					}
 				} );
 			}
 		};
@@ -58,12 +60,12 @@
 		$(children).each( function ( i ) {
 			$(this).css( {
 				position: 'absolute',
-				left: i == 0 ? 0 : ( free + ( i * labelWidth ) ),
-				width: free + labelWidth,
+				left: i === 0 ? 0 : ( free + ( i * labelWidth ) ),
+				width: free + labelWidth
 			} );
 			$(this).children( '.label' ).css( 'float', 'left' ).css( 'cursor', 'pointer' );
 			$(this).children( '.content' ).css( {
-				float: 'left',
+				'float': 'left',
 				width: free - labelWidth - ( $('.section .content').css( 'padding-left' ).replace( /px/, '' ) * 2 ),
 			} );
 			
@@ -76,7 +78,8 @@
 			} );
 		} );
 		
-		if ( height > $(this).height( ) )
+		if ( height > $(this).height( ) ) {
 			$(this).css( 'height', height );
+		}
 	};
 } )(jQuery);
