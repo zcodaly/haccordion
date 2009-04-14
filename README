@@ -64,7 +64,7 @@ Options are passed as a JavaScript object.  Possible options are as follows:
 - easing:		This is passed straight through to the jquery-ui calls.  Default is
 				'swing'.  The only other built in value is 'linear'.
 
-- default:		The ID of the default tab.  Once loaded, this tab will swing open.
+- selected:		The ID of the selected tab.  Once loaded, this tab will swing open.
 
 
 WARNINGS

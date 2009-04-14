@@ -1,6 +1,6 @@
 /*
 **	Project:	Horizontal Accordion (hAccodrion)
-**	Version:	v1.0
+**	Version:	v1.1
 **	Author:		Collin Klopfenstein
 **				collink@kulerwerks.com
 */
@@ -12,7 +12,7 @@
 			duration: 750,
 			easing: 'swing',
 			callback: null,
-			default: null
+			selected: null
 		}, settings );
 		
 		var height = 0;
@@ -48,7 +48,6 @@
 				var hit = false;
 				$(children).each( function ( i ) {
 					var tmp = this;
-					console.log( $(this).css( 'left' ) );
 					if ( !hit ) {
 						$(this).animate( { left: ( i * labelWidth ) }, options.duration, options.easing, function ( ) { window.sectionsFinished ++; if ( window.sectionsFinished == window.accordionSections ) { window.accordionExpanding = false; } if ( typeof options.callback == 'function' ) { options.callback.call( tmp ); } } );
 					} else {
@@ -80,16 +79,17 @@
 
 			$(this).children( '.label' ).click( function ( ) {
 				activate( $(this).parent( ) );
-			} );
+			} ).focus( function ( ) { $(this)[0].blur( ); } );
 		} );
 
 		if ( height > $(this).height( ) ) {
 			$(this).css( 'height', height );
 		}
 		
-		if ( options.default )
+		if ( options.selected ) {
 		    $( function ( ) {
-		        activate( $(options.default) );
+		        activate( $(options.selected) );
 		    } );
+	    }
 	};
 } )(jQuery);
