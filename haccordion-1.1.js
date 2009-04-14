@@ -11,7 +11,8 @@
 			label: 'label',
 			duration: 750,
 			easing: 'swing',
-			callback: null
+			callback: null,
+			default: null
 		}, settings );
 		
 		var height = 0;
@@ -47,6 +48,7 @@
 				var hit = false;
 				$(children).each( function ( i ) {
 					var tmp = this;
+					console.log( $(this).css( 'left' ) );
 					if ( !hit ) {
 						$(this).animate( { left: ( i * labelWidth ) }, options.duration, options.easing, function ( ) { window.sectionsFinished ++; if ( window.sectionsFinished == window.accordionSections ) { window.accordionExpanding = false; } if ( typeof options.callback == 'function' ) { options.callback.call( tmp ); } } );
 					} else {
@@ -72,7 +74,7 @@
 				width: free - labelWidth - ( $('.section .content').css( 'padding-left' ).replace( /px/, '' ) * 2 )
 			} );
 			
-			$(this).children( ).each( function ( ) {
+			$(this).children( '.content' ).each( function ( ) {
 				height = height > $(this).height( ) ? height : $(this).height( );
 			} );
 
@@ -84,5 +86,10 @@
 		if ( height > $(this).height( ) ) {
 			$(this).css( 'height', height );
 		}
+		
+		if ( options.default )
+		    $( function ( ) {
+		        activate( $(options.default) );
+		    } );
 	};
 } )(jQuery);
